@@ -28,8 +28,27 @@ public class Ejercicios {
      * frecuencia.
      */
     public static boolean areAnagrams(String str1, String str2) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (str1.length() != str2.length())
+            return false;
 
+        HashMap<Character, Integer> conteoCaracteresMap1 = new HashMap<>();
+        HashMap<Character, Integer> conteoCaracteresMap2 = new HashMap<>();
+
+        for (Character charStr1 : str1.toCharArray()) {
+            conteoCaracteresMap1.put(charStr1, conteoCaracteresMap1.getOrDefault(charStr1, 0) + 1);
+        }
+
+        for (Character charStr2 : str2.toCharArray()) {
+            conteoCaracteresMap2.put(charStr2, conteoCaracteresMap2.getOrDefault(charStr2, 0) + 1);
+        }
+
+        for (Character character : conteoCaracteresMap1.keySet()) {
+            if (!conteoCaracteresMap2.containsKey(character)
+                    || !conteoCaracteresMap1.get(character).equals(conteoCaracteresMap2.get(character))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /*
@@ -48,6 +67,15 @@ public class Ejercicios {
      * Output: null
      */
     public int[] sumatoriaDeDos(int[] nums, int objetivo) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        HashMap<Integer, Integer> mapita = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int complemento = objetivo - nums[i];
+            if (mapita.containsKey(complemento)) {
+                return new int[] { mapita.get(complemento), i };
+            }
+            mapita.put(nums[i], i);
+        }
+        return null;
     }
 }
